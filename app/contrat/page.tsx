@@ -24,6 +24,20 @@ import {
 import { useSearchParams } from 'next/navigation';
 import { type TypeDemande } from '@/types';
 
+// Définition des objets de demande par type
+const objetsDemande: Record<TypeDemande, string[]> = {
+  'remboursement': ['Demande de remboursement', 'Suivi de remboursement'],
+  'carte-tiers-payant': ['Demande de carte', 'Renouvellement de carte'],
+  'attestation': ['Attestation de droits', 'Attestation de paiement'],
+  'modification-contrat': ['Changement de RIB', 'Changement d\'adresse'],
+  'resiliation': ['Résiliation du contrat'],
+  'autre': ['Autre demande'],
+  'Changement de situation': ['Ajout de bénéficiaire', 'Changement de RIB', 'Changement d\'adresse'],
+  'Remboursement': ['Demande de remboursement', 'Suivi de remboursement'],
+  'Devis': ['Devis santé', 'Devis prévoyance'],
+  'Carte de mutuelle': ['Demande de carte', 'Renouvellement de carte']
+};
+
 interface Beneficiaire {
   nom: string;
   prenom: string;
@@ -197,7 +211,7 @@ const ContactForm = ({
   onCancel 
 }: { 
   data: Pick<Adherent, 'email' | 'telephoneMobile' | 'telephoneFixe' | 'adresse'>,
-  onSubmit: (values: any) => void,
+  onSubmit: (values: Pick<Adherent, 'email' | 'telephoneMobile' | 'telephoneFixe' | 'adresse'>) => void,
   onCancel: () => void
 }) => {
   const [formData, setFormData] = useState(data);
@@ -447,7 +461,7 @@ export default function ContratPage() {
     // ... existing code ...
   };
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = (values: Pick<Adherent, 'email' | 'telephoneMobile' | 'telephoneFixe' | 'adresse'>) => {
     setContactData(values);
     setIsEditing(false);
   };
