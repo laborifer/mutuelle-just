@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { 
   CalendarIcon, 
@@ -201,7 +201,7 @@ const urlToObjetMapping: Record<string, string> = {
   'changement-adresse': 'Changement d\'adresse'
 };
 
-export default function ContactPage() {
+function ContactPageContent() {
   const searchParams = useSearchParams();
   const [selectedBeneficiaire, setSelectedBeneficiaire] = useState('');
   const [selectedType, setSelectedType] = useState<TypeDemande | ''>('');
@@ -802,5 +802,17 @@ export default function ContactPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-just-pink"></div>
+      </div>
+    }>
+      <ContactPageContent />
+    </Suspense>
   );
 } 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { 
   PencilIcon, 
   DocumentArrowDownIcon, 
@@ -393,7 +393,7 @@ const OptInsManager = ({
   );
 };
 
-export default function ContratPage() {
+function ContratPageContent() {
   const searchParams = useSearchParams();
   const [selectedBeneficiaire, setSelectedBeneficiaire] = useState('');
   const [selectedType, setSelectedType] = useState<TypeDemande | ''>('');
@@ -891,5 +891,17 @@ export default function ContratPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ContratPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-just-pink"></div>
+      </div>
+    }>
+      <ContratPageContent />
+    </Suspense>
   );
 } 
