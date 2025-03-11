@@ -22,6 +22,7 @@ import {
   ChevronDownIcon
 } from '@heroicons/react/24/outline';
 import { useSearchParams } from 'next/navigation';
+import { type TypeDemande } from '@/types';
 
 interface Beneficiaire {
   nom: string;
